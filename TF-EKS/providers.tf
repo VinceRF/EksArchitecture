@@ -2,10 +2,10 @@ terraform {
   required_version = ">= 1.4"
 
   backend "s3" {
-    bucket         = "Vincent-dev-tfstate"
-    key            = "eks/Vincent-dev.tfstate"
+    bucket         = var.s3_bucket_name
+    key            = var.s3_bucket_key
     region         = "ap-northeast-2"
-    profile        = "Vincent-dev"
+    profile        = var.aws_profile
     dynamodb_table = "TerraformStateLock"
   }
 }
@@ -15,7 +15,7 @@ provider "aws" {
   region = local.region
   # shared_config_files=["~/.aws/config"] # Or $HOME/.aws/config
   # shared_credentials_files = ["~/.aws/credentials"] # Or $HOME/.aws/credentials
-  profile = "Vincent-dev"
+  profile = var.aws_profile
 
   # 자동으로 공통 태그를 추가해주는 기능
   default_tags {
@@ -43,14 +43,14 @@ provider "kubernetes" {
 }
 
 locals {
-  name            = "Vincent-dev"
-  cluster_version = "1.28"  # EKS 업그레이드 시 1.28 to 1.29 변경
+  name            = var.aws_profile
+  cluster_version = "1.28" # EKS 업그레이드 시 1.28 to 1.29 변경
   region          = "ap-northeast-2"
 
   vpc_cidr = "10.120.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
 
   tags = {
-    User = "Vincent"
+    User = var.aws_user_name
   }
 }

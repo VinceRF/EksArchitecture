@@ -69,9 +69,9 @@ module "eks" {
       max_size     = 2
       desired_size = 2
 
-      ami_id = data.aws_ami.eks_default.image_id
+      ami_id     = data.aws_ami.eks_default.image_id
       subnet_ids = module.vpc.private_subnets
-      disk_size = 80
+      disk_size  = 80
 
       ebs_optimized           = true
       disable_api_termination = false
@@ -93,7 +93,7 @@ module "eks" {
       # }
 
       create_iam_role          = true
-      iam_role_name            = "Vincent-dev-eks-managed-node-group"
+      iam_role_name            = var.iam_user_role_name
       iam_role_use_name_prefix = false
       iam_role_description     = "EKS dev managed node group"
       iam_role_tags = {
