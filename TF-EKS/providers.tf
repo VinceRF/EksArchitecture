@@ -43,7 +43,7 @@ provider "kubernetes" {
 }
 
 locals {
-  name            = "Vincent-dev"
+  name            = "${var.cluster_name}"
   cluster_version = "1.28" # EKS 업그레이드 시 1.28 to 1.29 변경
   region          = "ap-northeast-2"
 
