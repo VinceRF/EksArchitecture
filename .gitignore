@@ -1,2 +1,2 @@
-TF-EKS/variables.tf
-TF-EKS/tf-eks.tfvars
+TF-EKS/tf-eks/variables.tf
+TF-EKS/tf-eks/tf-eks.tfvars
